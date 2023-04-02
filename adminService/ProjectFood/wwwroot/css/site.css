@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.main-block {
+    flex: 1 0 auto;
+}
+
+.foot {
+    text-align: center;
+    flex: 0 0 auto;
+}
+
+.content{
+    margin: 10px auto;
+    width: 50%;
+}
+
+.form-add-food {
+    display: flex;
+    flex-direction: column;
+}
+
+.food-block {
+    margin: 10px auto;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+#urlList{
+    display: none;
+}

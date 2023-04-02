@@ -1,0 +1,32 @@
+﻿@using Google.Cloud.Firestore;
+@model QuerySnapshot
+@{
+    ViewData["Title"] = "Users page";
+}
+
+<div class="content">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end my-3">
+        <button class="btn btn-primary" type="button" onclick="window.location.reload();">Обновление таблицы</button>
+    </div>
+    <table class="table table-light table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Идентификатор</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">Имя</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DocumentSnapshot document in Model.Documents)
+            {
+                Dictionary<string, object> documentDictionary = document.ToDictionary();
+                <tr>
+                    <td>@documentDictionary["userID"]</td>
+                    <td>@documentDictionary["phone"]</td>
+                    <td>@documentDictionary["userName"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

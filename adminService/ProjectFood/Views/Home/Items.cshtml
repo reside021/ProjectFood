@@ -1,0 +1,45 @@
+﻿@using Google.Cloud.Firestore;
+@model QuerySnapshot
+@{
+    ViewData["Title"] = "Items page";
+}
+
+
+
+<div class="food-block d-flex align-content-between flex-wrap justify-content-center">
+
+    <div class="card m-4" style="width: 18rem; height: 450px;">
+        <a class="btn btn-outline-dark w-100 h-100 d-flex flex-column justify-content-center" asp-asp-controller="Home" asp-action="AddFood">
+            <p class="text-uppercase fs-3 fw-bold">Добавить блюдо</p>
+        </a>
+    </div>
+
+    @foreach (DocumentSnapshot document in Model.Documents)
+    {
+        Dictionary<string, object> documentDictionary = document.ToDictionary();
+        string cardImage = "";
+        try
+        {
+            cardImage = documentDictionary["previewImage"] as string;
+        }
+        catch
+        {
+            cardImage = "https://placehold.co/300x200?text=Без+Изображения";
+        }
+
+        <div class="card m-4 align-content-stretch d-flex" style="width: 18rem; height: 450px;">
+            <img src="@cardImage" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">@documentDictionary["name"]</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@documentDictionary["price"] Р - @documentDictionary["weight"] г</h6>
+                <p class="card-text" style="height:100px; overflow: hidden;">@documentDictionary["description"]</p>
+                <div class="d-flex justify-content-between mt-auto">
+                    <a asp-controller="UpdateFood" asp-action="Index" asp-route-id="@documentDictionary["id"]" class="btn btn-primary">Редактировать</a>
+                    <a asp-controller="Home" asp-action="DeleteFood" asp-route-id="@documentDictionary["id"]" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+

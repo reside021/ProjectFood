@@ -1,0 +1,74 @@
+﻿@model FoodModel
+@{
+    ViewData["Title"] = "Update page";
+}
+
+
+<div class="content">
+    <form method="post" asp-controller="UpdateFood" asp-action="Index" class="form-add-food" enctype="multipart/form-data">
+        <input asp-for="id" type="hidden" readonly="readonly">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Название блюда</label>
+            <input asp-for="Name" type="text" class="form-control">
+            <span class="text-warning" asp-validation-for="Name"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Описание</label>
+            <textarea class="form-control" asp-for="Description" type="text" rows="2"></textarea>
+            <span class="text-warning" asp-validation-for="Description"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="category" class="form-label">Категория</label>
+            <select asp-for="category" class="form-select" aria-label="Default select example" asp-items="@Model.Categories">
+                <option selected value="">Выберите категорию...</option>
+            </select>
+            <span class="text-warning" asp-validation-for="category"></span>
+        </div>
+        <div class="input-file-row mb-3">
+            <label asp-for="Image" class="me-3">Изображения блюда</label>
+            <label class="input-file">
+                <input type="file" multiple accept="image/*" asp-for="Image">
+                <span>Добавить изображения</span>
+            </label>
+            <div class="input-file-list">
+                @if (Model.urlList != null)
+                {
+                    @foreach (var url in Model.urlList)
+                    {
+                        string display = url == Model.previewImage ? "block" : "none";
+                        <div class="input-file-list-item">
+                            <input name="urlList" readonly="readonly" type="hidden" value="@url" class="form-control">
+                            <img onclick="pickPreviewImage(this);addSrcImage(this);return false;" class="input-file-list-img" src="@url" title="Сделать заглавным изображением блюда" />
+                            <a onclick="removeFilesItem(this);return false;" class="input-file-list-remove">x</a>
+                            <a class="mainImg" style="display:@display"></a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <input asp-for="previewImage" type="hidden" class="form-control">
+            <span class="text-warning" asp-validation-for="previewImage"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Weight" class="form-label">Масса блюда, грамм</label>
+            <input asp-for="Weight" type="number" class="form-control">
+            <span class="text-warning" asp-validation-for="Weight"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Цена, рубль</label>
+            <input asp-for="Price" type="number" class="form-control">
+            <span class="text-warning" asp-validation-for="Price"></span>
+        </div>
+        <button type="submit" class="btn btn-outline-dark ">Обновить данные</button>
+    </form>
+</div>
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/image_upload.css" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/js/image_upload.js"></script>
+}

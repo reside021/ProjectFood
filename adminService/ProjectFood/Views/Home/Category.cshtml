@@ -1,0 +1,23 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Категории";
+}
+
+<div class="content">
+    <form method="post" asp-controller="Home" asp-action="Category" class="form-add-food" enctype="multipart/form-data">
+        <div class="mb-3 w-100 mx-auto text-center">
+            <label asp-for="newCategory" class="form-label">Введита название новой категории</label>
+            <input asp-for="newCategory" type="text" class="form-control text-center">
+            <span asp-validation-for="newCategory" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-outline-dark mb-3">Добавить</button>
+    </form>
+    <div class="mb-3 w-50 mx-auto">
+        <ul class="list-group ">
+            @foreach (var dictCategory in Model.Categories)
+            {
+                <li class="list-group-item text-center">@dictCategory["category"]</li>
+            }
+        </ul>
+    </div>
+</div>

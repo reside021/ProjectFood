@@ -1,0 +1,59 @@
+﻿@model FoodModel
+@{
+    ViewData["Title"] = "AddFood page";
+}
+
+
+<div class="content">
+    <form method="post" asp-controller="Home" asp-action="AddFood" class="form-add-food" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Название блюда</label>
+            <input asp-for="Name" type="text" class="form-control">
+            <span class="text-warning" asp-validation-for="Name"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Описание</label>
+            <textarea class="form-control" asp-for="Description" type="text" rows="3"></textarea>
+            <span class="text-warning" asp-validation-for="Description"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="category" class="form-label">Категория</label>
+            <select asp-for="category" class="form-select" aria-label="Default select example" asp-items="@Model.Categories">
+                <option selected value="">Выберите категорию...</option>
+            </select>
+            <span class="text-warning" asp-validation-for="category"></span>
+        </div>
+        <div class="input-file-row mb-3">
+            <label asp-for="Image" class="me-3">Изображения блюда</label>
+            <label class="input-file">
+                <input type="file" multiple accept="image/*" asp-for="Image">
+                <span>Добавить изображения</span>
+            </label>
+            <div class="input-file-list"></div>
+        </div>
+        <div class="mb-3">
+            <input asp-for="previewImage" value="" type="hidden" class="form-control">
+            <span class="text-warning" asp-validation-for="previewImage"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Weight" class="form-label">Масса блюда, грамм</label>
+            <input asp-for="Weight" type="number" class="form-control">
+            <span class="text-warning" asp-validation-for="Weight"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Цена, рубль</label>
+            <input asp-for="Price" type="number" class="form-control">
+            <span class="text-warning" asp-validation-for="Price"></span>
+        </div>
+        <button type="submit" class="btn btn-outline-dark ">Добавить блюдо</button>
+    </form>
+</div>
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/image_upload.css" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/js/image_upload.js"></script>
+}

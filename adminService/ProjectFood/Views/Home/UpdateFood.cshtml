@@ -1,0 +1,57 @@
+﻿@*@model FoodModel
+@{
+    ViewData["Title"] = "Update page";
+}
+
+
+<div class="content">
+    <form method="post" asp-controller="Home" asp-action="UpdateFood" class="form-add-food" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Название блюда</label>
+            <input asp-for="Name" type="text" class="form-control">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Описание</label>
+            <textarea class="form-control" asp-for="Description" type="text" rows="2"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <div class="input-file-row mb-3">
+            <label asp-for="Image" class="me-3">Изображения блюда</label>
+            <label class="input-file">
+                <input type="file" multiple accept="image/*" asp-for="Image">
+                <span>Выберите файлы</span>
+            </label>
+            <div class="input-file-list">
+                @foreach (var url in Model.urlList)
+                {
+                    <div class="input-file-list-item">
+                        <img class="input-file-list-img" src="@url">
+                        <a asp-controller="Home" asp-action="DeleteImageFood" asp-route-url="@url" onclick="removeFilesItem(this);" class="input-file-list-remove" >x</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Weight" class="form-label">Масса блюда, грамм</label>
+            <input asp-for="Weight" type="number" class="form-control">
+            <span asp-validation-for="Weight"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Цена, рубль</label>
+            <input asp-for="Price" type="number" class="form-control">
+            <span asp-validation-for="Price"></span>
+        </div>
+        <button type="submit" class="btn btn-outline-dark ">Добавить блюдо</button>
+    </form>
+</div>
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/image_upload.css" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/js/image_upload.js"></script>
+}*@
