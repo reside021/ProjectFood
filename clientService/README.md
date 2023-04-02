@@ -1,16 +1,24 @@
+# Проект находится в разработке
 # project_food
 
-A new Flutter project.
+Мобильный клиент системы
 
-## Getting Started
+# Возможности
 
-This project is a starting point for a Flutter application.
+- Установка геолокации и адреса для доставки
+- Авторизация с помощью номера телефона и ввода sms-кода
+- Уставнока/смена имени
+- Просмотр блюда
+- Добавление блюда в корзину
+- Просмотр блюд в корзине
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Изображения
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Корзина](screen/cart.jpg)
+
+![Страница блюда](screen/food.jpg) 
+
+![Главная страница](screen/main.jpg)
+
+![Профиль](screen/profile.jpg)
