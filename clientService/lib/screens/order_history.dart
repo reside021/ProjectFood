@@ -13,20 +13,26 @@ class OrderHistory extends StatefulWidget {
 }
 
 class _OrderHistoryState extends State<OrderHistory> {
-  final Stream<QuerySnapshot> _streamWithData = FirebaseFirestore.instance
-      .collection("users")
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection("requestForHelp")
+
+  final Stream<QuerySnapshot> streamWithData = FirebaseFirestore.instance
+      .collection("orders")
+      .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .orderBy('id', descending: true)
       .snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Order history"),
+        backgroundColor: const Color(0xFFe41f26),
+      ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
-          stream: _streamWithData,
+          stream: streamWithData,
           builder: (builder, snapshot) {
             if (snapshot.hasError) {
+              print(snapshot.error);
               return const WindowError();
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -39,11 +45,18 @@ class _OrderHistoryState extends State<OrderHistory> {
                         doc.data()! as Map<String, dynamic>;
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushNamed(OrderInfo.id);
+                        Navigator.of(context).pushNamed(OrderInfo.id, arguments: data["id"]);
                       },
-                      child: ListTile(
-                        title: Text(data["theme"]),
-                        subtitle: Text(doc["id"]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Text("Order date: ${data["dateTime"]}"),
+                          subtitle: Text("Order cost: ${data["price"]}"),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
                       ),
                     );
                   })

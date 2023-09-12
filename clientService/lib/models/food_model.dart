@@ -18,4 +18,17 @@ class FoodModel {
     required this.urlImage,
     required this.weight,
   });
+
+  FoodModel fromMap(Map map) {
+    return FoodModel(
+      category: map['category'],
+      description: map['description'],
+      id: map['id'],
+      name: map['name'],
+      previewImage: map['previewImage'],
+      price: map['price'],
+      urlImage: map['urlImage'],
+      weight: map['weight'],
+    );
+  }
 }

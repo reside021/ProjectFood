@@ -46,9 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection("requestForHelp")
+                  .collection("support")
                   .doc(docID)
                   .collection("messages")
                   .orderBy("timestamp")
@@ -110,9 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ).toMap();
 
                         FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection("requestForHelp")
+                            .collection("support")
                             .doc(docID)
                             .collection("messages")
                             .add(data)

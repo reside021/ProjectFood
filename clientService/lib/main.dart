@@ -4,6 +4,7 @@ import 'package:project_food/bloc/location_cubit.dart';
 import 'package:project_food/screens/chat_support_screen.dart';
 import 'package:project_food/screens/item_screen.dart';
 import 'package:project_food/screens/auth_screen.dart';
+import 'package:project_food/screens/list_items_orders.dart';
 import 'package:project_food/screens/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_food/screens/map_screen.dart';
@@ -21,7 +22,7 @@ Future<void> main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
     webRecaptchaSiteKey:
-        "apps.googleusercontent.com",
+        "803623622792-5en82s0f5lll93v5dbvb1avlnmgtpn0o.apps.googleusercontent.com",
   );
   runApp(MyApp());
 }
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<LocationCubit>(
@@ -57,6 +61,7 @@ class MyApp extends StatelessWidget {
           ChatScreen.id: (context) => ChatScreen(),
           ItemScreen.id: (context) => ItemScreen(),
           OrderInfo.id: (context) => OrderInfo(),
+          ListItemsOrders.id: (context) => ListItemsOrders(),
         },
       ),
     );

@@ -4,7 +4,7 @@ class CartItem {
   final String previewImage;
   final int price;
   final int weight;
-  final int count;
+  int count;
 
   CartItem({
     required this.id,
@@ -14,4 +14,15 @@ class CartItem {
     required this.weight,
     required this.count,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'previewImage': previewImage,
+      'price': price,
+      'weight': weight,
+      'count': count
+    };
+  }
 }

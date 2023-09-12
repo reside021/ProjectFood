@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_food/models/request_model.dart';
+import 'package:project_food/models/support_model.dart';
 import 'package:project_food/widgets/theme_msg_dialog.dart';
 
 import '../widgets/window_error.dart';
@@ -18,9 +18,8 @@ class TextSupportScreen extends StatefulWidget {
 
 class _TextSupportScreenState extends State<TextSupportScreen> {
   final Stream<QuerySnapshot> _streamWithData = FirebaseFirestore.instance
-      .collection("users")
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection("requestForHelp")
+      .collection("support")
+      .where("idUser", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
 
   Future<void> _createNewRequest() async {
@@ -33,17 +32,19 @@ class _TextSupportScreenState extends State<TextSupportScreen> {
         "";
     if (themeMessage.trim().isEmpty) return;
 
-    final requestModel = RequestHelpModel(
+    var idUser = FirebaseAuth.instance.currentUser!.uid;
+
+    final supportModel = SupportModel(
       timeCreate: Timestamp.now(),
       theme: themeMessage,
       id: nowDateTime,
+      idUser: idUser,
+      isOpen: true
     ).toMap();
 
     FirebaseFirestore.instance
-        .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("requestForHelp")
-        .add(requestModel);
+        .collection("support")
+        .add(supportModel);
   }
 
   @override
@@ -76,7 +77,7 @@ class _TextSupportScreenState extends State<TextSupportScreen> {
                       },
                       child: ListTile(
                         title: Text(data["theme"]),
-                        subtitle: Text(doc["id"]),
+                        subtitle: Text(data["id"]),
                       ),
                     );
                   })
